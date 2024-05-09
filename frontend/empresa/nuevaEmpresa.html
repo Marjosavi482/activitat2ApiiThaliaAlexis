@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Nueva empresa</title>
+    </head>
+    <body>
+        <h1>Nueva empresa</h1>
+        <form id="empresa-form">
+            <label for="emp-nom">Nombre:</label>
+            <input type="text" id="emp-nom" name="emp_nom"><br>
+            <label for="emp-ubicacion">Ubicación:</label>
+            <input type="text" id="emp-ubicacion" name="emp_ubicacion"><br>
+            <label for="emp-sector">Sector:</label>
+            <input type="text" id="emp-sector" name="emp_sector"><br>
+            <label for="emp-descripcion">Descripción:</label><br>
+            <textarea id="emp-descripcion" name="emp_descripcion"></textarea><br>
+            <button type="submit">Guardar</button>
+        </form>
+
+        <script>
+            const form = document.getElementById('empresa-form');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const nombre = document.getElementById('emp-nom').value;
+                const ubicacion = document.getElementById('emp-ubicacion').value;
+                const sector = document.getElementById('emp-sector').value;
+                const descripcion = document.getElementById('emp-descripcion').value;
+                const data = {
+                    emp_nom: nombre,
+                    emp_ubicacion: ubicacion,
+                    emp_sector: sector,
+                    emp_descripcion: descripcion
+                };
+                fetch('../api/empresa.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status == 'success') {
+                        form.reset();
+                        self.location.href='verEmpresas.html';
+                    } else {
+                        alert('Se produjo un error al crear la empresa');
+                    }
+                })
+                .catch(error => {
+                    alert('Se produjo un error al crear la empresa');
+                    console.error(error);
+                });
+            });
+        </script>
+    </body>
+</html>

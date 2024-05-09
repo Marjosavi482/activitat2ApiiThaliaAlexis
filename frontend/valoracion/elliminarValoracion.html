@@ -1,0 +1,15 @@
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const valId = urlParams.get('val_id');
+    fetch(`../api/valoracio.php?val_id=${valId}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status == 'success') {
+            self.location.href='verValoraciones.html';
+        } else {
+            alert('Error al eliminar la valoración');
+        }
+    });
+</script>

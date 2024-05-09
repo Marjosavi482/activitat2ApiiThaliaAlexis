@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Nueva valoración</title>
+    </head>
+    <body>
+        <h1>Nueva valoración</h1>
+        <form id="valoracion-form">
+            <label for="val-puntuacion">Puntuación:</label>
+            <input type="number" id="val-puntuacion" name="val_puntuacion" min="1" max="5"><br>
+            <label for="val-comentario">Comentario:</label><br>
+            <textarea id="val-comentario" name="val_comentario"></textarea><br>
+            <button type="submit">Guardar</button>
+        </form>
+
+        <script>
+            const form = document.getElementById('valoracion-form');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const puntuacion = document.getElementById('val-puntuacion').value;
+                const comentario = document.getElementById('val-comentario').value;
+                const data = {
+                    val_puntuacion: puntuacion,
+                    val_comentario: comentario
+                };
+                fetch('../api/valoracion.php?emp_id=1', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status == 'success') {
+                        form.reset();
+                        self.location.href='verValoraciones.html';
+                    } else {
+                        alert('Se produjo un error al crear la valoración');
+                    }
+                })
+                .catch(error => {
+                    alert('Se produjo un error al crear la valoración');
+                    console.error(error);
+                });
+            });
+        </script>
+    </body>
+</html>

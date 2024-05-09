@@ -1,0 +1,16 @@
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const emp_id = urlParams.get('emp_id');
+    fetch(`../api/empresa.php?id=${emp_id}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status == 'success') {
+            //alert('Empresa eliminada');
+            self.location.href='verEmpresas.html';
+        } else {
+            alert('Error al eliminar la empresa');
+        }
+    });
+</script>

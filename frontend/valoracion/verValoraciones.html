@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver valoraciones</title>
+</head>
+<body>
+    <h1>Valoraciones</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Empresa ID</th>
+                <th>Usuario</th>
+                <th>Puntuación</th>
+                <th>Comentario</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody id="valoraciones-tabla">
+            <!-- Aquí se insertan las valoraciones -->
+        </tbody>
+    </table>
+    <script>
+        fetch('../../api/VALORACIO.php')
+        .then(response => response.json())
+        .then(data => {
+            const valoracionesTabla = document.getElementById('valoraciones-tabla');
+            data.forEach(valoracio => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${valoracio.val_id}</td>
+                    <td>${valoracio.emp_id}</td>
+                    <td>${valoracio.usu_mail}</td>
+                    <td>${valoracio.val_puntuacio}</td>
+                    <td>${valoracio.val_comentari}</td>
+                    <td>${valoracio.val_data}</td>
+
+                    <td><a href='nuevaValoracion.html?id=${valoracio.val_id}'>Eliminar</a></td>
+                `;
+                valoracionesTabla.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>

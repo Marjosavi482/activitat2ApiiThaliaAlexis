@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Modificar empresa</title>
+    </head>
+    <body>
+        <h1>Modificar empresa</h1>
+        <form id="empresa-form">
+            <label for="emp-nom">Nombre:</label>
+            <input type="text" id="emp-nom" name="emp_nom"><br>
+            <label for="emp-ubicacion">Ubicación:</label>
+            <input type="text" id="emp-ubicacion" name="emp_ubicacion"><br>
+            <label for="emp-sector">Sector:</label>
+            <input type="text" id="emp-sector" name="emp_sector"><br>
+            <label for="emp-descripcion">Descripción:</label>
+            <textarea id="emp-descripcion" name="emp_descripcion"></textarea><br>
+            <button type="submit">Guardar</button>
+        </form>
+
+        <!-- carga de los datos de la empresa en el formulario -->
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const empId = urlParams.get('emp_id');
+            fetch(`../api/empresa.php?emp_id=${empId}`,{
+                method: 'GET'                
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const nombreInput = document.getElementById('emp-nom');
+                    const ubicacionInput = document.getElementById('emp-ubicacion');
+                    const sectorInput = document.getElementById('emp-sector');
+                    const descripcionInput = document.getElementById('emp-descripcion');
+                    nombreInput.value = data.emp_nom;
+                    ubicacionInput.value = data.emp_ubicacion;
+                    sectorInput.value = data.emp_sector;
+                    descripcionInput.value = data.emp_descripcio;
+                });
+        </script>
+
+        <!-- control del envío de los nuevos datos de la empresa -->
+        <script>
+            const form = document.getElementById('empresa-form');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const nombre = document.getElementById('emp-nom').value;
+                const ubicacion = document.getElementById('emp-ubicacion').value;
+                const sector = document.getElementById('emp-sector').value;
+                const descripcion = document.getElementById('emp-descripcion').value;
+                const data = {
+                    emp_nom: nombre,
+                    emp_ubicacion: ubicacion,
+                    emp_sector: sector,
+                    emp_descripcio: descripcion
+                };
+                fetch(`../api/empresa.php?emp_id=${empId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status == 'success') {
+                        form.reset();
+                        self.location.href='verEmpresas.html';
+                    } else {
+                        alert('Se ha producido un error al modificar la empresa');
+                    }
+                })
+                .catch(error => {
+                    alert('Se ha producido un error al modificar la empresa');
+                    console.error(error);
+                });
+            });
+        </script>
+    </body>
+</html>

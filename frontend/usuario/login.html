@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title></title>
 </head>
+
 <body>
-    <form method="POST" action="login.proc.php">
-        <label for="usu_mail">Mail:</label>
-        <input type="usu_mail" name="usu_mail" id="usu_mail" required>
-        <label for="usu_contra">Password:</label>
-        <input type="usu_contra" name="usu_contra" id="usu_contra" required>
-        <input type="submit" value="Login">
+    <form action="../../backend/usuario/login.proc.php" method="GET">
+        <h1>Log in</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom usuari</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input name="usu_mail" size="20"></td>
+                    <td><input name="usu_contra" size="20"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Enviar"></td>
+                </tr>
+            </tbody>
+        </table>
     </form>
 </body>
+
 </html>

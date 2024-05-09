@@ -50,7 +50,7 @@ CREATE TABLE `USUARI` (
     PRIMARY KEY (`usu_mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
-INSERT INTO `USUARI` (`usu_mail`, `usu_contra`) VALUES
+INSERT INTO `USUARI` (`usu_mail`, `usu_contra`,`usu_nivell`) VALUES
 ('david.marin@itb.cat', 'qwe123', 'admin'),
 ('thalia.soler.7e7@itb.cat', '123qwe', 'admin'),
 ('jordi.cidoncha@itb.cat', 'qwerty','user');

@@ -19,7 +19,7 @@
              if ($loged) {
                  echo "<a href='../backend/logout.proc.php'>Bienvenido/a, " . $_SESSION['usuari'] . "</a>";
              } else {
-                 echo "<a href='../backend/usuario/login.proc.php'>Iniciar sesión</a>";
+                 echo "<a href='../frontend/usuario/login.html'>Iniciar sesión</a>";
              }
              ?>
              </div>
